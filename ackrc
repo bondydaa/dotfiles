@@ -431,6 +431,7 @@
 --ignore-directory=is:venv/
 --ignore-file=is:samplePolicy.json
 --ignore-file=is:tags
+--ignore-file=is:auth.a
 --ignore-file=is:iOS/Expensify.xcodeproj/project.pbxproj
 --ignore-file=is:tags.temp.tmp
 --ignore-file=is:tags.temp
