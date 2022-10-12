@@ -77,6 +77,7 @@ let g:gutentags_generate_on_missing = 1
 let g:gutentags_generate_on_write = 1
 let g:gutentags_generate_on_empty_buffer = 0
 let g:gutentags_add_default_project_roots = 0
+let g:gutentags_define_advanced_commands = 1
 " define various roots for 'projects' to break up tag file sizes
 let g:gutentags_project_root = ['package.json', '.git', 'Web-Expensify/site', 'Web-Expensify/lib']
 
@@ -434,3 +435,6 @@ let g:vdebug_options["path_maps"] = {
 \}
 let g:vdebug_options['timeout'] = 60
 let g:vdebug_options['break_on_open'] = 0
+
+" pull in keybindings for cscope
+source ~/dotfiles/cscope_maps.vim

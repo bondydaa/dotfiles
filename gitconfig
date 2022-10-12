@@ -2,7 +2,6 @@
     name = David Bondy
     email = dbondy@expensify.com
     signingkey = 3A26DCDE331D5D71
-	signingkey = 3A26DCDE331D5D71
 [github]
     user = bondydaa
 [commit]
