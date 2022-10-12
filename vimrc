@@ -429,3 +429,6 @@ let g:vdebug_options["path_maps"] = {
 \}
 let g:vdebug_options['timeout'] = 60
 let g:vdebug_options['break_on_open'] = 0
+
+" pull in keybindings for cscope
+source ~/dotfiles/cscope_maps.vim
