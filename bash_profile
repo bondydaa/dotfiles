@@ -33,3 +33,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 #export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$PYENV_ROOT/shims:$PATH"
 eval "$(pyenv init -)"
+
+# Define cscope db path
+export CSCOPE_DB=/Users/dbondy/Expensidev/cscope.out
