@@ -36,3 +36,8 @@ eval "$(pyenv init -)"
 
 # Define cscope db path
 export CSCOPE_DB=/Users/dbondy/Expensidev/cscope.out
+
+#Android SDK things for react native
+export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
