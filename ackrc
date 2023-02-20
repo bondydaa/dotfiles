@@ -436,4 +436,5 @@
 --ignore-file=is:tags.temp.tmp
 --ignore-file=is:tags.temp
 --ignore-file=is:si-tx-operations.json
+--ignore-directory=is:.jest-cache
 
