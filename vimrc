@@ -260,7 +260,7 @@ nnoremap <leader>s q/kA
 nnoremap H ^
 
 " Git diff current file
-nmap <F1> :!git diff -- %<cr>
+"nmap <F1> :!git diff -- %<cr>
 
 " Toggle line numbers
 nnoremap <F2> :set nonumber!<CR>
@@ -269,10 +269,10 @@ nnoremap <F2> :set nonumber!<CR>
 nnoremap <f3> /\v[=\<\>]{4,}<cr>
 
 " Fix whitespcae
-nmap <F4> :FixWhitespace<cr>
+"nmap <F4> :FixWhitespace<cr>
 
 " Toggle set paste
-nmap <F6> :set paste!<cr>:set paste?<cr>
+"nmap <F6> :set paste!<cr>:set paste?<cr>
 
 " Jump to header file
 " https://github.com/ericcurtin/CurtineIncSw.vim
@@ -290,7 +290,6 @@ command! W w
 command! Q q
 command! Qa qa
 command! Formatjson %!python -m json.tool
-nnoremap vv :e ~/.vimrc<cr>
 
 augroup js_syntax " {
     autocmd!
