@@ -247,7 +247,8 @@ nmap <leader>d :bd<cr>
 
 " Open file on github in current line and on current hash
 " Note: this depends on the git url alias
-nmap <leader>g :!echo `git url`/blob/`git rev-parse --short HEAD`/%\#L<C-R>=line('.')<CR> \| xargs open<CR><CR>
+" Note: uses special %:s?pattern?sub? vim feature see :h filename-modifiers
+nmap <leader>g :!echo `git url`/blob/`git rev-parse --short HEAD`/%:s?/Users/dbondy/Expensidev??\#L<C-R>=line('.')<CR> \| xargs open<CR><CR>
 
 nmap <leader>dd :bd<cr>:vs<cr><right><down>
 map <leader>e :edit %%
