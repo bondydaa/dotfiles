@@ -41,3 +41,4 @@ export CSCOPE_DB=/Users/dbondy/Expensidev/cscope.out
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
 export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home; # Only for old dot mobile, will break new dot
