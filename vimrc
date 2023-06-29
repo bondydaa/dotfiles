@@ -126,6 +126,9 @@ set showcmd
 
 " Enable highlighting for syntax
 syntax on
+" Not sure exactly what this is but prevents a redraw timeout for the syntax
+" highlighter
+set re=1
 
 " Enable file type detection.
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
@@ -146,38 +149,19 @@ set tabstop=4
 set number
 let mapleader=","
 
+" break at words not characters
+set linebreak
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup vimrcEx
+augroup textWrap
   " Clear all autocmds in the group
   autocmd!
-  autocmd FileType text setlocal textwidth=90
-  " Jump to last cursor position unless it's invalid or in an event handler
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-  "for ruby, autoindent with two spaces, always expand tabs
-  "autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
-  autocmd FileType python set sw=4 sts=4 et
-
-  autocmd! BufRead,BufNewFile *.sass setfiletype sass
-
-  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
-  autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
-
-  " Indent p tags
-  " autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
-
-  " Don't syntax highlight markdown because it's often wrong
-  autocmd! FileType mkd setlocal syn=off
-
-  " Leave the return key alone when in command line windows, since it's used
-  " to run commands there.
-  autocmd! CmdwinEnter * :unmap <cr>
-  autocmd! CmdwinLeave * :call MapCR()
+  autocmd FileType php,cpp,h setlocal wrap
+  autocmd FileType php,cpp,h setlocal textwidth=80
+  autocmd FileType php,cpp,h setlocal wrapmargin=0
+  " options taken from https://stackoverflow.com/a/70462463/3302668
+  autocmd FileType php,cpp,h setlocal formatoptions=croaq
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
