@@ -161,7 +161,8 @@ augroup textWrap
   autocmd FileType php,cpp,h setlocal textwidth=80
   autocmd FileType php,cpp,h setlocal wrapmargin=0
   " options taken from https://stackoverflow.com/a/70462463/3302668
-  autocmd FileType php,cpp,h setlocal formatoptions=croaq
+  " note: a is evil and makes your life unbearable
+  autocmd FileType php,cpp,h setlocal formatoptions=crqb
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
