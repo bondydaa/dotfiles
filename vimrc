@@ -39,6 +39,9 @@ Plug 'vim-vdebug/vdebug', {'tag': 'v2.0.0'}
 " https://github.com/dense-analysis/ale#vim-plug
 Plug 'dense-analysis/ale'
 
+" https://github.com/dr-kino/cscope-maps
+Plug 'dr-kino/cscope-maps'
+
 " Initialize plugin system
 call plug#end()
 
@@ -417,5 +420,3 @@ function! DoPrettyXML()
 endfunction
 command! PrettyXML call DoPrettyXML()
 
-" pull in keybindings for cscope
-source ~/dotfiles/cscope_maps.vim
