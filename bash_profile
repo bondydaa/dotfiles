@@ -42,3 +42,15 @@ export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
 export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home; # Only for old dot mobile, will break new dot
+
+# Warp cert trickery
+CA_CERT_PATH="/Users/dbondy/Expensidev/Ops-Configs/saltfab/cacert.pem"
+
+if [ -f "$CA_CERT_PATH" ]; then
+    export NODE_EXTRA_CA_CERTS="$CA_CERT_PATH"
+    export AWS_CA_BUNDLE="$CA_CERT_PATH"
+    export SSL_CERT_FILE="$CA_CERT_PATH"
+    export CURL_CA_BUNDLE="$CA_CERT_PATH"
+    export BUNDLE_SSL_CA_CERT="$CA_CERT_PATH"
+    export REQUESTS_CA_BUNDLE="$CA_CERT_PATH"
+fi

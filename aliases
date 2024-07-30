@@ -25,6 +25,7 @@ alias cleanBranches="git branch --merge | egrep -v '(^\*|master)' | xargs git br
 alias saltfab="cd ~/Expensidev/Ops-Configs/saltfab && source venv/bin/activate"
 alias fab="fab -u dbondy"
 alias fhk="~/dotfiles/fuckHostKeys.sh"
+alias opf='op item list | fzf | awk "{print \$1}" | xargs op item get'
 
 # adding things $PATH
 export PATH=/usr/local/bin:$PATH

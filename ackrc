@@ -443,3 +443,5 @@
 --ignore-file=is:tags.temp.tmp
 --ignore-file=is:tags.temp
 --ignore-file=is:.phpunit.result.cache
+--ignore-file=is:cscope.out
+--ignore-file=is:cscope.files
