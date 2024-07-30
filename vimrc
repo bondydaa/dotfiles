@@ -2,7 +2,7 @@
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'jelera/vim-javascript-syntax'
 
@@ -14,7 +14,10 @@ Plug 'StanAngeloff/php.vim'
 
 Plug 'nanotech/jellybeans.vim', { 'tag': 'v1.6' }
 
-Plug 'pangloss/vim-javascript'
+" https://pragmaticpineapple.com/ultimate-vim-typescript-setup/
+Plug 'pangloss/vim-javascript' " JavaScript support
+Plug 'leafgarland/typescript-vim' " TypeScript syntax
+Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
 
 Plug 'NLKNguyen/papercolor-theme'
 
@@ -22,9 +25,9 @@ Plug 'NLKNguyen/c-syntax.vim'
 
 Plug 'prabirshrestha/async.vim'
 
-Plug 'prabirshrestha/vim-lsp'
+"Plug 'prabirshrestha/vim-lsp'
 
-Plug 'ajh17/vimcompletesme'
+"Plug 'ajh17/vimcompletesme'
 
 Plug 'ericcurtin/CurtineIncSw.vim'
 
@@ -32,6 +35,9 @@ Plug 'ericcurtin/CurtineIncSw.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 Plug 'vim-vdebug/vdebug', {'tag': 'v2.0.0'}
+
+" https://github.com/dense-analysis/ale#vim-plug
+Plug 'dense-analysis/ale'
 
 " Initialize plugin system
 call plug#end()
@@ -70,16 +76,16 @@ let g:PaperColor_Theme_Options = {
 colorscheme PaperColor
 
 " Gutentag settings
-set statusline+=%{gutentags#statusline()}
+"set statusline+=%{gutentags#statusline()}
 " When to regenerate tags
-let g:gutentags_generate_on_new = 1
-let g:gutentags_generate_on_missing = 1
-let g:gutentags_generate_on_write = 1
-let g:gutentags_generate_on_empty_buffer = 0
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_define_advanced_commands = 1
-" define various roots for 'projects' to break up tag file sizes
-let g:gutentags_project_root = ['package.json', '.git', 'Web-Expensify/site', 'Web-Expensify/lib']
+"let g:gutentags_generate_on_new = 1
+"let g:gutentags_generate_on_missing = 1
+"let g:gutentags_generate_on_write = 1
+"let g:gutentags_generate_on_empty_buffer = 0
+"let g:gutentags_add_default_project_roots = 0
+"let g:gutentags_define_advanced_commands = 1
+"" define various roots for 'projects' to break up tag file sizes
+"let g:gutentags_project_root = ['package.json', '.git', 'Web-Expensify/site', 'Web-Expensify/lib']
 
 " execute pathogen#infect()
 " let g:CommandTWildIgnore=&wildignore . ",**/node_modules/*"
@@ -158,7 +164,7 @@ augroup textWrap
   " Clear all autocmds in the group
   autocmd!
   autocmd FileType php,cpp,h setlocal wrap
-  autocmd FileType php,cpp,h setlocal textwidth=80
+  autocmd FileType php,cpp,h setlocal textwidth=245
   autocmd FileType php,cpp,h setlocal wrapmargin=0
   " options taken from https://stackoverflow.com/a/70462463/3302668
   " note: a is evil and makes your life unbearable
