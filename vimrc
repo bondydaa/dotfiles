@@ -64,20 +64,6 @@ set splitright
 " let g:javascript_plugin_jsdoc = 1
 " let g:loaded_syntastic_java_javac_checker = 1 " disable javac checker
 
-set t_Co=256
-set background=light
-let g:PaperColor_Theme_Options = {
-  \   'language': {
-  \     'cpp': {
-  \       'highlight_standard_library': 1
-  \     },
-  \     'c': {
-  \       'highlight_builtins' : 1
-  \     }
-  \   }
-  \ }
-colorscheme PaperColor
-
 " Gutentag settings
 "set statusline+=%{gutentags#statusline()}
 " When to regenerate tags
@@ -245,6 +231,20 @@ map <leader>n :call RenameFile()<cr>
 "let g:solarized_contrast = "normal"
 "set background=light
 "colorscheme solarized
+
+set t_Co=256
+set background=light
+let g:PaperColor_Theme_Options = {
+  \   'language': {
+  \     'cpp': {
+  \       'highlight_standard_library': 1
+  \     },
+  \     'c': {
+  \       'highlight_builtins' : 1
+  \     }
+  \   }
+  \ }
+colorscheme PaperColor
 
 set timeoutlen=400
 " nmap <leader>m :CommandT <cr>
