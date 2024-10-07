@@ -48,7 +48,8 @@ export CC="ccache /usr/bin/clang-18"
 export CXX="ccache /usr/bin/clang++-18"
 
 # Set vim env variable based on latest version, if you update VIM you need to change this!
-export VIMRUNTIME=/opt/homebrew/Cellar/vim/9.1.0650/share/vim/vim91
+# commenting this out so neovim works for now
+#export VIMRUNTIME=/opt/homebrew/Cellar/vim/9.1.0650/share/vim/vim91
 
 # Warp cert trickery
 CA_CERT_PATH="/Users/dbondy/Expensidev/Ops-Configs/saltfab/cacert.pem"
