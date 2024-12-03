@@ -5,10 +5,10 @@
 ############################
 
 # dotfiles directory
-dir=~/dotfiles
+dir=~/Code/dotfiles
 
 # list of files to symlink in homedir
-files="bashrc vimrc gitconfig bash_profile aliases git-completion.bash ackrc inputrc"
+files="bashrc gitconfig aliases git-completion.bash ackrc inputrc"
 
 # change to the dotfiles directory
 echo -n "Changing to the $dir directory ..."
@@ -23,8 +23,8 @@ do
     rm ~/.$file
 done
 
-printf '\e[1;34m%-6s\e[m' "Removing ctag defaults"
-rm ~/.ctags.d/default.ctags
+#printf '\e[1;34m%-6s\e[m' "Removing ctag defaults"
+#rm ~/.ctags.d/default.ctags
 
 printf '\e[1;34m%-6s\e[m' "Creating symlink to files in home directory"
 printf "\n"
@@ -34,5 +34,5 @@ do
     ln -s $dir/$file ~/.$file
 done
 
-printf '\e[1;34m%-6s\e[m' "Creating symlink to ctag defaults"
-ln -s $dir/default.ctag ~/.ctags.d/default.ctags
+#printf '\e[1;34m%-6s\e[m' "Creating symlink to ctag defaults"
+#ln -s $dir/default.ctag ~/.ctags.d/default.ctags
