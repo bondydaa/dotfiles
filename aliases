@@ -3,27 +3,7 @@ alias pack='ack --php'
 alias hack='ack --html'
 alias l='ls -lrth'
 
-# start rbenv automatically
-#eval "$(rbenv init -)"
-
-# expensify aliases
-dev_dir="Expensidev"
-alias dev="cd ~/${dev_dir}/"
-alias www="cd ~/${dev_dir}/Web-Expensify/"
-alias auth="cd ~/${dev_dir}/Auth/"
-alias dotcash="cd ~/${dev_dir}/Expensify.cash/"
-alias secure_dev="cd ~/${dev_dir}/Web-Secure/"
-alias mobile_dev="cd ~/${dev_dir}/Mobile-Expensify/"
-alias ssh_tunnel="ssh -f -L 3306:db-testing.expensify.com:3306 bastion1.sc -N"
-alias authclean="find . -name '.build' | xargs rm -rfv"
-alias copymobilehosts="adb push /etc/hosts /system/etc/hosts"
 alias ackmultiple="echo 'ack -l [query2] | ack -x [query2]'"
-alias smartscan="vssh php /vagrant/Web-Expensify/_tasks/receiptscan.php"
-alias ngrok_start="ngrok http --hostname=expensify-bondy.ngrok.io --host-header rewrite www.expensify.com.dev:443"
-alias cleanBranches="git branch --merge | egrep -v '(^\*|master)' | xargs git branch -d"
-alias saltfab="cd ~/Expensidev/Ops-Configs/saltfab && source venv/bin/activate"
-alias fab="fab -u dbondy"
-alias fhk="~/dotfiles/fuckHostKeys.sh"
 
 # adding things $PATH
 export PATH=/usr/local/bin:$PATH
@@ -57,17 +37,7 @@ function pushf(){
 function pr(){
     remote=`git remote -v | grep origin | head -1 | awk '{print $2'} | sed 's/.*:\(.*\)*/\1/' | sed 's/\.git$//'`
     branch=`git rev-parse --abbrev-ref HEAD`
-    open "https://github.com/$remote/compare/${1:-master}...$branch?expand=1&body=please%20review%0A-%20Fixes%0A%0A%23%23%23%23%23%20Dev%20tests%0A%23%23%23%23%23%20QA%20tests%0A"
-}
-
-# Follow The Leader - list out which servers is Leader and which are Followers
-function ftl(){
-    saltfab
-    fab -g bastion1.sjc -H db1.sjc -- "echo -ne \"status\\r\\nconnection:close\\r\\n\\r\\n\" | nc -w 60 localhost 8888 | tail -1 | jq '(\"\(.host) \(.state)\"), (.peerList[] | \"\(.host) \(.State)\")'" | grep out
-}
-
-function tfa(){
-    2fa "$1" | pbcopy
+    open "https://github.com/$remote/compare/${1:-master}...$branch?expand=1"
 }
 
 function getPosturePID(){

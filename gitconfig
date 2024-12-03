@@ -20,38 +20,12 @@
 [alias]
     url =! bash -c 'git config --get remote.origin.url | sed -E "s/.+:\\(.+\\)\\.git$/https:\\\\/\\\\/github\\\\.com\\\\/\\\\1/g"'
     ap = add -p
-    st = stash
-    cv = commit -v
-    cva = commit -v --amend
-    cc = commit -v --amend -CHEAD
     dc = diff --cached
     lg = log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(yellow)%s%C(reset) %C(bold yellow)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
-    lp = log -p
     sl = stash list
-    conflict  = diff --name-only --diff-filter=U
-    conflicts = diff --name-only --diff-filter=U
-    pm = pull origin master
-    db = branch -d
-    dbf = branch -D
-    rh = reset --hard HEAD
-    co = checkout
-    cb = checkout -b
-    ri = rebase -i
-    cp = cherry-pick
-    sp = stash pop
     bg = bisect good
     bb = bisect bad
     ss = stash save
-    pb = "!f() { git pull ${1:-origin} `git symbolic-ref HEAD`; }; f"
-    foc = "!f() { git fetch origin $1; git co $1; }; f"
-    np = !git --no-pager
-    da = !git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d
-    au = add -u
-
-    # typos
-    dif = diff
-    difff = diff
-    shoe = git show
 [core]
 	editor = vim
 	excludesfile = /Users/davidbondy/.gitignore
