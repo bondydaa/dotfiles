@@ -107,6 +107,13 @@ function color_my_prompt {
 }
 PROMPT_COMMAND=color_my_prompt
 
+# use gpg agent for ssh
+# https://github.com/drduh/YubiKey-Guide?tab=readme-ov-file#replace-agents
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+gpg-connect-agent updatestartuptty /bye > /dev/null
+
 source ~/.git-completion.bash
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
