@@ -18,3 +18,7 @@ export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
 
+
+# qlty
+export QLTY_INSTALL="$HOME/.qlty"
+export PATH=$QLTY_INSTALL/bin:$PATH
