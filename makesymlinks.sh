@@ -8,7 +8,7 @@
 dir=~/Code/dotfiles
 
 # list of files to symlink in homedir
-files="bashrc gitconfig aliases git-completion.bash ackrc inputrc"
+files="bash_profile bashrc gitconfig aliases git-completion.bash ackrc inputrc"
 
 # change to the dotfiles directory
 echo -n "Changing to the $dir directory ..."
