@@ -1,9 +1,9 @@
 [user]
     name = David Bondy
-    email = bondydaa@gmail.com
-	signingkey = 458433B6FE5FFA3E
+    email = david.bondy@dhcs.ca.gov
+    signingkey = E4DF3582
 [github]
-    user = bondydaa
+    user = david-bondy-dhcs
 [commit]
     gpgsign = true
 [color]
