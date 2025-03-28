@@ -15,27 +15,32 @@ require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use {
-        'williamboman/mason.nvim',
-        require("mason").setup()
+	'williamboman/mason.nvim',
+	config = function()
+	    require("mason").setup()
+	end
     }
 
     use {
         'williamboman/mason-lspconfig.nvim',
-        requires = {
-            'williamboman/mason.nvim',
-            'neovim/nvim-lspconfig'
-        },
-        require("mason-lspconfig").setup {
-            ensure_installed = {
-                "pyright",
-                "tsserver",
-                "omnisharp",
-                "sqls",
-                "rust_analyzer",
-                "gopls",
-                "terraformls",
-            }
-        }
+        after = "mason.nvim",
+	requires = {
+	    'williamboman/mason.nvim',
+	    'neovim/nvim-lspconfig'
+	},
+	config = function()
+	    require("mason-lspconfig").setup {
+	        ensure_installed = {
+	            "pyright",
+	            "omnisharp",
+		    "postgrestools",
+		    "gopls",
+		    "terraformls",
+                    "typos_lsp",
+                    "snyk_ls",
+	        }
+	    }
+        end
     }
 
     -- LSP and Completion
@@ -49,10 +54,28 @@ require('packer').startup(function(use)
     -- Telescope for fuzzy finding
     use {
         'nvim-telescope/telescope.nvim',
-        requires = { 
-            {'nvim-lua/plenary.nvim'},
-            {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
-        }
+        requires = {
+            'nvim-lua/plenary.nvim',
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                run = 'make',
+            }
+        },
+        config = function()
+            -- Telescope Configuration
+            require('telescope').setup {
+                extensions = {
+                    fzf = {
+                        fuzzy = true,
+                        override_generic_sorter = true,
+                        override_file_sorter = true,
+                        case_mode = "smart_case",
+                    }
+                }
+            }
+            -- Attempt to load the fzf extension
+            pcall(require('telescope').load_extension, 'fzf')
+        end
     }
 
     -- Treesitter for advanced syntax highlighting
@@ -100,7 +123,6 @@ end)
 
 -- Basic Settings
 vim.opt.number = true
-vim.opt.relativenumber = true
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
@@ -187,20 +209,6 @@ require('nvim-treesitter.configs').setup {
         enable = true,
     }
 }
-
--- Telescope Configuration
-require('telescope').setup {
-    extensions = {
-        fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-        }
-    }
-}
--- Load fzf extension
-require('telescope').load_extension('fzf')
 
 -- LSP Configuration
 local lspconfig = require('lspconfig')
