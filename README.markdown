@@ -20,9 +20,11 @@ cd ~/dotfiles
 ./makesymlinks.sh
 ```
 
-Ctags
+nvim
 ------------
-Use universal-ctags: [https://github.com/universal-ctags/ctags](https://github.com/universal-ctags/ctags)
+To probably use nvim, need to download:
+1. node (use nvm, via brew)
+1. golang (use brew)
 
 Less Syntax Highlight
 ------------
