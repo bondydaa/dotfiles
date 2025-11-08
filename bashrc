@@ -109,9 +109,9 @@ PROMPT_COMMAND=color_my_prompt
 
 # use gpg agent for ssh
 # https://github.com/drduh/YubiKey-Guide?tab=readme-ov-file#replace-agents
-export GPG_TTY="$(tty)"
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpgconf --launch gpg-agent
+export GPG_TTY="$(tty)" # required so that git uses gpg prompt to sign commits
+#export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+#gpgconf --launch gpg-agent
 
 source ~/.git-completion.bash
 

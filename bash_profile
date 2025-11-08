@@ -20,3 +20,5 @@ export QLTY_INSTALL="$HOME/.qlty"
 export PATH=$QLTY_INSTALL/bin:$PATH
 
 export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"
+
+export KUBECONFIG=${HOME?}/teleport-kubeconfig.yaml
