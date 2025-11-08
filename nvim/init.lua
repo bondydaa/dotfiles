@@ -43,6 +43,20 @@ require('packer').startup(function(use)
         end
     }
 
+    -- Cleanup whitepace
+    use 'ntpeters/vim-better-whitespace'
+
+    -- Yaml
+    use {
+        "cuducos/yaml.nvim",
+        requires = {
+            "nvim-treesitter/nvim-treesitter",
+            "folke/snacks.nvim", -- optional
+            "nvim-telescope/telescope.nvim", -- optional
+            "ibhagwan/fzf-lua", --optional
+        },
+    }
+
     -- LSP and Completion
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/nvim-cmp'
@@ -114,12 +128,37 @@ require('packer').startup(function(use)
     use 'kyazdani42/nvim-web-devicons'
     use {
         'nvim-lualine/lualine.nvim',
-        requires = { 
+        requires = {
             'kyazdani42/nvim-web-devicons',
-            opt = true 
+            opt = true
         }
     }
+
+    use {
+    'github/copilot.vim',
+    config = function()
+        -- Configure copilot settings
+        vim.g.copilot_no_tab_map = true  -- Disable default tab mapping
+        vim.g.copilot_assume_mapped = true
+
+        -- Custom keymaps for copilot
+        vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
+            expr = true,
+            noremap = true,
+            silent = true,
+            replace_keycodes = false
+        })
+        vim.api.nvim_set_keymap('i', '<C-L>', '<Plug>(copilot-accept-word)', { silent = true })
+        vim.api.nvim_set_keymap('i', '<C-H>', '<Plug>(copilot-previous)', { silent = true })
+        vim.api.nvim_set_keymap('i', '<C-K>', '<Plug>(copilot-next)', { silent = true })
+    end
+}
 end)
+
+-- Better whitespace settings
+vim.g.better_whitespace_enabled = 1
+vim.g.strip_whitespace_on_save = 1
+
 
 -- Basic Settings
 vim.opt.number = true
@@ -133,6 +172,7 @@ vim.opt.mouse = 'a'  -- Enable mouse support
 vim.opt.clipboard = 'unnamedplus'  -- Use system clipboard
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.shortmess = "" -- Prevent command line status/messages from disappearing
 
 -- Theme Setup
 vim.o.background = 'light'
@@ -142,21 +182,22 @@ vim.cmd('colorscheme PaperColor')
 require('nvim-treesitter.configs').setup {
     -- Ensure these parsers are installed
     ensure_installed = {
-        'lua', 
-        'python', 
-        'javascript', 
-        'typescript', 
-        'c_sharp', 
-        'sql', 
-        'json', 
-        'markdown', 
-        'bash', 
-        'html', 
-        'css', 
-        'rust', 
+        'lua',
+        'python',
+        'javascript',
+        'typescript',
+        'c_sharp',
+        'sql',
+        'json',
+        'markdown',
+        'bash',
+        'html',
+        'css',
+        'rust',
         'go',
         'terraform',
         'hcl',
+        'yaml',
     },
 
     -- Enable syntax highlighting
@@ -249,7 +290,18 @@ end
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
+-- Function to check if Copilot is enabled
+local function is_copilot_enabled()
+    return vim.g.copilot_enabled == 1
+end
+
+-- Custom enabled function for cmp
+local function cmp_enabled()
+    return not is_copilot_enabled()
+end
+
 cmp.setup {
+    enabled = cmp_enabled,
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -290,11 +342,79 @@ cmp.setup {
         })
 }
 
+-- Copilot and nvim-cmp integration
+local function setup_copilot_cmp_integration()
+    -- Initialize copilot as enabled by default
+    if vim.g.copilot_enabled == nil then
+        vim.g.copilot_enabled = 1
+    end
+
+    -- Function to refresh cmp state
+    local function refresh_cmp()
+        -- Force cmp to re-evaluate its enabled state
+        cmp.setup({ enabled = cmp_enabled })
+
+        -- Also disable for current buffer specifically
+        if is_copilot_enabled() then
+            cmp.setup.buffer({ enabled = false })
+        else
+            cmp.setup.buffer({ enabled = true })
+        end
+    end
+
+    -- Create user commands for manual control
+    vim.api.nvim_create_user_command('CopilotEnable', function()
+        vim.g.copilot_enabled = 1
+        refresh_cmp()
+        print("Copilot enabled, nvim-cmp disabled")
+    end, {})
+
+    vim.api.nvim_create_user_command('CopilotDisable', function()
+        vim.g.copilot_enabled = 0
+        refresh_cmp()
+        print("Copilot disabled, nvim-cmp enabled")
+    end, {})
+
+    vim.api.nvim_create_user_command('CopilotToggle', function()
+        if is_copilot_enabled() then
+            vim.g.copilot_enabled = 0
+            print("Copilot disabled, nvim-cmp enabled")
+        else
+            vim.g.copilot_enabled = 1
+            print("Copilot enabled, nvim-cmp disabled")
+        end
+        refresh_cmp()
+    end, {})
+
+    -- Create autocommands to refresh cmp state
+    vim.api.nvim_create_augroup('CopilotCmpIntegration', { clear = true })
+
+    vim.api.nvim_create_autocmd({'InsertEnter', 'BufEnter'}, {
+        group = 'CopilotCmpIntegration',
+        callback = refresh_cmp,
+    })
+
+    -- Initial setup
+    refresh_cmp()
+end
+
+-- Call the setup function
+setup_copilot_cmp_integration()
+
+-- Copilot Keymaps
+vim.api.nvim_set_keymap('n', '<leader>ce', ':CopilotEnable<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>cd', ':CopilotDisable<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ct', ':CopilotToggle<CR>', { noremap = true, silent = true })
+
 -- Telescope Keymaps
 vim.api.nvim_set_keymap('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = true, silent = true })
+
+-- Yaml Helpers
+vim.api.nvim_buf_set_keymap(0, "n", "<leader>yt", ":YAMLTelescope<CR>", { noremap = false })
+vim.api.nvim_buf_set_keymap(0, "n", "<leader>yl", ":!yamllint %<CR>", { noremap = true, silent = true })
 
 -- LSP Keymaps
 vim.api.nvim_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true })
@@ -314,6 +434,9 @@ vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { 
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', { noremap = true, silent = true })
 
+-- Personal keymaps
+vim.api.nvim_set_keymap('n', 'GT', ':tabprev<CR>', { noremap = true})
+
 -- Lualine Configuration
 require('lualine').setup {
     options = {
@@ -324,7 +447,7 @@ require('lualine').setup {
     sections = {
         lualine_a = {'mode'},
         lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
+        lualine_c = {{'filename', path = 3}},
         lualine_x = {'encoding', 'fileformat', 'filetype'},
         lualine_y = {'progress'},
         lualine_z = {'location'}
