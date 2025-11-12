@@ -27,9 +27,11 @@
     bb = bisect bad
     ss = stash save
 [core]
-	editor = vim
-	excludesfile = /Users/davidbondy/.gitignore
+    editor = vim
+    excludesfile = /Users/davidbondy/.gitignore
 [gpg]
-	program = gpg
+    program = gpg
 [pull]
-	rebase = false
+    rebase = false
+[includeIf "gitdir:~/code/deloitte/"]
+    path = ~/.gitconfig-deloitte
