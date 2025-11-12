@@ -15,17 +15,17 @@ require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use {
-	'williamboman/mason.nvim',
+	'mason-org/mason.nvim',
 	config = function()
 	    require("mason").setup()
 	end
     }
 
     use {
-        'williamboman/mason-lspconfig.nvim',
+        'mason-org/mason-lspconfig.nvim',
         after = "mason.nvim",
 	requires = {
-	    'williamboman/mason.nvim',
+	    'mason-org/mason.nvim',
 	    'neovim/nvim-lspconfig'
 	},
 	config = function()
@@ -33,7 +33,6 @@ require('packer').startup(function(use)
 	        ensure_installed = {
 	            "pyright",
 	            "omnisharp",
-		    "postgrestools",
 		    "gopls",
 		    "terraformls",
                     "typos_lsp",
@@ -252,7 +251,6 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- LSP Configuration
-local lspconfig = require('lspconfig')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
 -- Capabilities for LSP
@@ -283,7 +281,7 @@ local servers = {
 -- Setup each language server
 for server, config in pairs(servers) do
     config.capabilities = capabilities
-    lspconfig[server].setup(config)
+    vim.lsp.config[server] = config
 end
 
 -- Completion Setup
