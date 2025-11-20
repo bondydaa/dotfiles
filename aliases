@@ -9,7 +9,7 @@ alias ackmultiple="echo 'ack -l [query2] | ack -x [query2]'"
 export PATH=/usr/local/bin:$PATH
 export PATH=$PATH:~/Library/Android/sdk/platform-tools # android sdk tools (adb)
 export PATH=/usr/local/sbin:$PATH # homebrew stuff
-export export GOPATH=$HOME/go # golang workspace
+export GOPATH=$HOME/go # golang workspace
 export PATH=$PATH:$GOPATH/bin # add golang executable
 
 export NVM_DIR="$HOME/.nvm"
