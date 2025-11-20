@@ -17,7 +17,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 function pr(){
-    remote=`git remote -v | grep origin | head -1 | awk '{print $2'} | sed 's/.*:\(.*\)*/\1/' | sed 's/\.git$//'`
+    remote=`git remote -v | grep origin | head -1 | awk '{print $2}' | sed 's/.*:\(.*\)/\1/' | sed 's/\.git$//'`
     branch=`git rev-parse --abbrev-ref HEAD`
     open "https://github.com/$remote/compare/${1:-master}...$branch?expand=1"
 }
