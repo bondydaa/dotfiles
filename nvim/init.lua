@@ -152,6 +152,13 @@ require('packer').startup(function(use)
         vim.api.nvim_set_keymap('i', '<C-K>', '<Plug>(copilot-next)', { silent = true })
     end
 }
+
+    -- Markdown Preview
+    use {
+        'iamcco/markdown-preview.nvim',
+        run = 'cd app && npm install',
+        ft = { 'markdown' },
+    }
 end)
 
 -- Better whitespace settings
