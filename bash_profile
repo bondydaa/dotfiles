@@ -22,3 +22,7 @@ export PATH=$QLTY_INSTALL/bin:$PATH
 export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"
 
 export KUBECONFIG=${HOME?}/teleport-kubeconfig.yaml
+
+# Create variable to track version of postgresql, and add it to path
+export PSQL_VERSION=15
+export PATH="/opt/homebrew/opt/postgresql@${PSQL_VERSION}/bin:$PATH"
