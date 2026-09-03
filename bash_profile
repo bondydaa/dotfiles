@@ -1,11 +1,6 @@
 # Add homebrew to path
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-#pyenv used for saltfab
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-#eval "$(pyenv init --path)"
-
 source ~/.bashrc
 
 export NVM_DIR="$HOME/.nvm"
@@ -14,6 +9,12 @@ export NVM_DIR="$HOME/.nvm"
 
  # Add golang to PATH
 export PATH="$PATH:/usr/local/go/bin"
+
+# Python Stuff
+export PATH="/Users/dbondy/.local/bin:$PATH"
+
+# Aider Stuff
+export OLLAMA_API_BASE=http://127.0.0.1:11434
 
 # qlty
 export QLTY_INSTALL="$HOME/.qlty"
@@ -26,3 +27,10 @@ export KUBECONFIG=${HOME?}/teleport-kubeconfig.yaml
 # Create variable to track version of postgresql, and add it to path
 export PSQL_VERSION=15
 export PATH="/opt/homebrew/opt/postgresql@${PSQL_VERSION}/bin:$PATH"
+export GITHUB_TOKEN="<PAT>"
+export DD_API_KEY="<API_KEY>"
+export DD_APP_KEY="<APP_KEY>"
+
+# terraform, 2nd one may not be needed but if terraform init commands start failing try it out
+export TF_REGISTRY_CLIENT_TIMEOUT=30
+#export TF_REGISTRY_DISCOVERY_RETRY=5
