@@ -104,6 +104,7 @@ require("lazy").setup({
             }
 
             for server, config in pairs(servers) do
+                config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
                 vim.lsp.config[server] = config
                 vim.lsp.enable(server)
             end
@@ -237,7 +238,7 @@ require("lazy").setup({
     -- Terraform syntax highlighting
     {
         "hashivim/vim-terraform",
-        ft = "terraform",
+        ft = { "terraform", "terraform-vars", "hcl" },
         config = function(_, _)
             vim.g.terraform_fmt_on_save = 1
             vim.g.terraform_align = 1
