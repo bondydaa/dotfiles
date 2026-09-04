@@ -50,6 +50,7 @@ require("lazy").setup({
                     "ts_ls",
                     "rust_analyzer",
                     "sqls",
+                    "yamlls",
                 },
             })
         end,
@@ -199,38 +200,18 @@ require("lazy").setup({
 
     -- Treesitter for advanced syntax highlighting
     {
-        "nvim-treesitter/nvim-treesitter",
-        build = function()
-            local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-            ts_update()
-        end,
-        config = function(_, _)
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = {
-                    "lua",
-                    "python",
-                    "javascript",
-                    "typescript",
-                    "c_sharp",
-                    "sql",
-                    "json",
-                    "markdown",
-                    "bash",
-                    "html",
-                    "css",
-                    "rust",
-                    "go",
-                    "terraform",
-                    "hcl",
-                    "yaml",
-                },
-                highlight = {
-                    enable = true,
-                    additional_vim_regex_highlighting = false,
-                },
-                indent = {
-                    enable = true,
-                },
+        'nvim-treesitter/nvim-treesitter',
+        branch = 'main',
+        build = ':TSUpdate',
+        config = function()
+            require('nvim-treesitter').setup()
+            require('nvim-treesitter').install {
+                "lua", "python", "javascript", "typescript", "c_sharp", "sql", "json", "markdown", "bash", "html", "css", "rust", "go", "terraform", "hcl", "yaml",
+            }
+            vim.api.nvim_create_autocmd('FileType', {
+                callback = function(args)
+                    pcall(vim.treesitter.start, args.buf)
+                end,
             })
         end,
     },
@@ -245,46 +226,6 @@ require("lazy").setup({
         end,
     },
 
-    {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        config = function(_, _)
-            require("nvim-treesitter.configs").setup({
-                textobjects = {
-                    select = {
-                        enable = true,
-                        lookahead = true,
-                        keymaps = {
-                            ["af"] = "@function.outer",
-                            ["if"] = "@function.inner",
-                            ["ac"] = "@class.outer",
-                            ["ic"] = "@class.inner",
-                        },
-                    },
-                    move = {
-                        enable = true,
-                        set_jumps = true,
-                        goto_next_start = {
-                            ["]m"] = "@function.outer",
-                            ["]]"] = "@class.outer",
-                        },
-                        goto_next_end = {
-                            ["]M"] = "@function.outer",
-                            ["]["] = "@class.outer",
-                        },
-                        goto_previous_start = {
-                            ["[m"] = "@function.outer",
-                            ["[["] = "@class.outer",
-                        },
-                        goto_previous_end = {
-                            ["[M"] = "@function.outer",
-                            ["[]"] = "@class.outer",
-                        },
-                    },
-                },
-            })
-        end,
-    },
     {
         "windwp/nvim-ts-autotag",
         config = function(_, _)
