@@ -113,6 +113,4 @@ export GPG_TTY="$(tty)" # required so that git uses gpg prompt to sign commits
 #export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 #gpgconf --launch gpg-agent
 
-source ~/.git-completion.bash
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
