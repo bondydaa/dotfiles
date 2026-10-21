@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/david.bondy/.docker/bin"
+# End of Docker Desktop section.
+
 # Add homebrew to path
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -11,7 +15,7 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:/usr/local/go/bin"
 
 # Python Stuff
-export PATH="/Users/dbondy/.local/bin:$PATH"
+export PATH="/Users/david.bondy/.local/bin:$PATH"
 
 # Aider Stuff
 export OLLAMA_API_BASE=http://127.0.0.1:11434
